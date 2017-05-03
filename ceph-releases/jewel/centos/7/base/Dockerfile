@@ -2,8 +2,8 @@
 # CEPH VERSION: Jewel
 # CEPH VERSION DETAIL: 0.94.x
 
-FROM centos:7
-MAINTAINER Sébastien Han "seb@redhat.com"
+FROM openestuary/centos:v300
+MAINTAINER HuangJinhua "sjtuhjh@hotmail.com"
 
 ENV CEPH_VERSION jewel
 ENV CONFD_VERSION 0.10.0
@@ -16,12 +16,14 @@ ARG PACKAGES="unzip ceph-mon ceph-osd ceph-mds ceph-base ceph-common ceph-radosg
 RUN yum install -y $PACKAGES && rpm -q $PACKAGES && yum clean all
 
 # Install confd
-ADD https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64 /usr/local/bin/confd
+#ADD https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64 /usr/local/bin/confd
+ADD confd /usr/local/bin/confd
 RUN chmod +x /usr/local/bin/confd && mkdir -p /etc/confd/conf.d && mkdir -p /etc/confd/templates
 
 # Download forego
-ADD https://bin.equinox.io/c/ekMN3bCZFUn/forego-stable-linux-amd64.tgz /forego.tgz
-RUN cd /usr/local/bin && tar xfz /forego.tgz && chmod +x /usr/local/bin/forego && rm /forego.tgz
+#ADD https://bin.equinox.io/c/ekMN3bCZFUn/forego-stable-linux-amd64.tgz /forego.tgz
+ADD forego /usr/local/bin/forego
+RUN chmod +x /usr/local/bin/forego 
 
 ADD entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
