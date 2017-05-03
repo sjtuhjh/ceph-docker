@@ -47,7 +47,7 @@ docker run -d --net=host \
 -e KV_TYPE=etcd \
 -e KV_IP=127.0.0.1 \
 -e KV_PORT=4001 \
-openestuary/ceph/daemon populate_kvstore
+openestuary/ceph populate_kvstore
 ```
 
 ## Zap a device
@@ -58,7 +58,7 @@ Sometimes you might want to destroy partition tables from a disk. For this you c
 docker run -d --privileged=true \
 -v /dev/:/dev/ \
 -e OSD_DEVICE=/dev/sdd \
-openestuary/ceph/daemon zap_device
+openestuary/ceph zap_device
 ```
 
 ## Deploy a monitor
@@ -73,7 +73,7 @@ docker run -d --net=host \
 -v /var/lib/ceph/:/var/lib/ceph/ \
 -e MON_IP=192.168.0.20 \
 -e CEPH_PUBLIC_NETWORK=192.168.0.0/24 \
-openestuary/ceph/daemon mon
+openestuary/ceph mon
 ```
 
 With KV store, run:
@@ -85,7 +85,7 @@ docker run -d --net=host \
 -e CEPH_PUBLIC_NETWORK=192.168.0.0/24 \
 -e KV_TYPE=etcd \
 -e KV_IP=192.168.0.20 \
-openestuary/ceph/daemon mon
+openestuary/ceph mon
 ```
 
 List of available options:
@@ -137,7 +137,7 @@ docker run -d --net=host \
 -v /dev/:/dev/ \
 -e OSD_DEVICE=/dev/vdd \
 -e OSD_FORCE_ZAP=1 \
-openestuary/ceph/daemon osd
+openestuary/ceph osd
 ```
 
 With KV backend:
@@ -151,7 +151,7 @@ docker run -d --net=host \
 -e OSD_FORCE_ZAP=1 \
 -e KV_TYPE=etcd \
 -e KV_IP=192.168.0.20 \
-openestuary/ceph/daemon osd
+openestuary/ceph osd
 ```
 
 ### Ceph disk
@@ -167,7 +167,7 @@ docker run -d --net=host \
 -v /dev/:/dev/ \
 -e OSD_DEVICE=/dev/vdd \
 -e OSD_TYPE=disk \
-openestuary/ceph/daemon osd
+openestuary/ceph osd
 ```
 
 Using bluestore:
@@ -182,7 +182,7 @@ docker run -d --net=host \
 -e OSD_DEVICE=/dev/vdd \
 -e OSD_TYPE=disk \
 -e OSD_BLUESTORE=1 \
-openestuary/ceph/daemon osd
+openestuary/ceph osd
 ```
 
 Using dmcrypt:
@@ -197,7 +197,7 @@ docker run -d --net=host \
 -e OSD_DEVICE=/dev/vdd \
 -e OSD_TYPE=disk \
 -e OSD_DMCRYPT=1 \
-openestuary/ceph/daemon osd
+openestuary/ceph osd
 ```
 
 With KV backend:
@@ -211,7 +211,7 @@ docker run -d --net=host \
 -e OSD_TYPE=disk \
 -e KV_TYPE=etcd \
 -e KV_IP=192.168.0.20 \
-openestuary/ceph/daemon osd
+openestuary/ceph osd
 ```
 
 Using bluestore with KV backend:
@@ -226,7 +226,7 @@ docker run -d --net=host \
 -e KV_TYPE=etcd \
 -e KV_IP=192.168.0.20 \
 -e OSD_BLUESTORE=1 \
-openestuary/ceph/daemon osd
+openestuary/ceph osd
 ```
 
 Using dmcrypt with KV backend:
@@ -241,7 +241,7 @@ docker run -d --net=host \
 -e KV_TYPE=etcd \
 -e KV_IP=192.168.0.20 \
 -e OSD_DMCRYPT=1 \
-openestuary/ceph/daemon osd
+openestuary/ceph osd
 ```
 
 List of available options:
@@ -265,7 +265,7 @@ docker run -d --net=host \
 -v /dev/:/dev/ \
 -e OSD_DEVICE=/dev/vdd \
 -e OSD_TYPE=activate \
-openestuary/ceph/daemon osd
+openestuary/ceph osd
 ```
 
 ### Ceph OSD directory
@@ -348,7 +348,7 @@ docker run -d --net=host \
 -v /var/lib/ceph/:/var/lib/ceph/ \
 -v /etc/ceph:/etc/ceph \
 -e CEPHFS_CREATE=1 \
-openestuary/ceph/daemon mds
+openestuary/ceph mds
 ```
 
 With KV backend, run:
@@ -358,7 +358,7 @@ docker run -d --net=host \
 -e CEPHFS_CREATE=1 \
 -e KV_TYPE=etcd \
 -e KV_IP=192.168.0.20 \
-openestuary/ceph/daemon mds
+openestuary/ceph mds
 ```
 
 List of available options:
@@ -375,7 +375,7 @@ Without kv backend, run:
 docker run -d --net=host \
 -v /var/lib/ceph/:/var/lib/ceph/ \
 -v /etc/ceph:/etc/ceph \
-openestuary/ceph/daemon rgw
+openestuary/ceph rgw
 ```
 
 With kv backend, run:
@@ -384,7 +384,7 @@ With kv backend, run:
 docker run -d --net=host \
 -e KV_TYPE=etcd \
 -e KV_IP=192.168.0.20 \
-openestuary/ceph/daemon rgw
+openestuary/ceph rgw
 ```
 
 List of available options:
@@ -406,7 +406,7 @@ To enable an external CGI interface instead of civetweb set:
 - `RGW_REMOTE_CGI_HOST=192.168.0.1`
 - `RGW_REMOTE_CGI_PORT=9000`
 
-And run the container like this `docker run -d -v /etc/ceph:/etc/ceph -v /var/lib/ceph/:/var/lib/ceph -e CEPH_DAEMON=RGW -e RGW_NAME=myrgw -p 9000:9000 -e RGW_REMOTE_CGI=1 -e RGW_REMOTE_CGI_HOST=192.168.0.1 -e RGW_REMOTE_CGI_PORT=9000 openestuary/ceph/daemon`
+And run the container like this `docker run -d -v /etc/ceph:/etc/ceph -v /var/lib/ceph/:/var/lib/ceph -e CEPH_DAEMON=RGW -e RGW_NAME=myrgw -p 9000:9000 -e RGW_REMOTE_CGI=1 -e RGW_REMOTE_CGI_HOST=192.168.0.1 -e RGW_REMOTE_CGI_PORT=9000 openestuary/ceph`
 
 ## Deploy a REST API
 
@@ -416,7 +416,7 @@ This is pretty straighforward. The `--net=host` is not mandatory, if you don't u
 docker run -d --net=host \
 -e KV_TYPE=etcd \
 -e KV_IP=192.168.0.20 \
-openestuary/ceph/daemon restapi
+openestuary/ceph restapi
 ```
 
 ## Deploy a RBD mirror
@@ -427,14 +427,14 @@ This is pretty straighforward. The `--net=host` is not mandatory, with KV we do:
 docker run -d --net=host \
 -e KV_TYPE=etcd \
 -e KV_IP=192.168.0.20 \
-openestuary/ceph/daemon rbd_mirror
+openestuary/ceph rbd_mirror
 ```
 
 Without KV we do:
 
 ```
 docker run -d --net=host \
-openestuary/ceph/daemon rbd_mirror
+openestuary/ceph rbd_mirror
 ```
 
 List of available options:
