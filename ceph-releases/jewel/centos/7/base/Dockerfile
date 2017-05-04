@@ -17,7 +17,7 @@ RUN yum install -y $PACKAGES && rpm -q $PACKAGES && yum clean all
 
 # Install confd
 #ADD https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64 /usr/local/bin/confd
-ADD confd /usr/local/bin/confd
+ADD confd_bin /usr/local/bin/confd
 RUN chmod +x /usr/local/bin/confd && mkdir -p /etc/confd/conf.d && mkdir -p /etc/confd/templates
 
 # Download forego
